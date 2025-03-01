@@ -136,10 +136,34 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Generators.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Generators.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Init.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="InteruptHandler.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="InteruptHandler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Joystick.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Joystick.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Lcd.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Lcd.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">

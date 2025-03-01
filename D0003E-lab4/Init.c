@@ -22,9 +22,12 @@ void Init(void) {
 	//       (low power )   (enable lcd)
 	
 	// Stuffs for the joystick and interrupt
-	PORTB = SET(PB7) | SET(PB6) | SET(PB4);									// Set corresponding Output pin
-	DDRB = (1 << DDB7);									// Unsure
-	PORTE = 0b00010000;
-	PCMSK1 |= (1 << PCINT15);							// Pin change interrupt 1
-	EIMSK |= (1 << PCIE1);								// Enalbe pin change on I/O pin 7
+	PORTB = SET(PB7) | SET(PB6) | SET(PB4);					// Set corresponding Output pin for up, down and in
+	DDRB = SET(DDB7);										// Unsure
+
+	PORTE = SET(PE2) | SET(PE3);							// Set corresponding Output pin for Left and Right
+	DDRE = SET(DDE2) | SET(DDE3);						
+	PCMSK1 |= SET(PCINT15) | SET(PCINT14) | SET(PCINT12);	// Pin change interrupt 1
+	PCMSK0 |= SET(PCINT2) | SET(PCINT3);
+	EIMSK |= SET(PCIE1) | SET(PCIE0);						// Enalbe pin change on I/O pin 7
 }

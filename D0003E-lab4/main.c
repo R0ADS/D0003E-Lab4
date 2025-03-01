@@ -7,10 +7,15 @@
 
 #include "TinyTimber.h"
 #include "init.h"
+#include "Generators.h"
+#include "Lcd.h"
 #include <avr/io.h>
+#include <util/delay.h>
 #include <stdbool.h>
 
-bool isStalled = 0;
+
+
+/*bool isStalled = 0;
 
 const uint8_t characters[11][4] = {			// 2D array to keep characters in (e.g [0][x] is '0')
 	[0] = {0b0001, 0b0101, 0b0101, 0b0001},
@@ -25,16 +30,6 @@ const uint8_t characters[11][4] = {			// 2D array to keep characters in (e.g [0]
 	[9] = {0b0001, 0b0101, 0b1011, 0b0001},
 	[10] = {0b1001, 0b1111, 0b1111, 0b1111},// This spot is for the "invalid" character (also used for reset)
 };
-
-ISR(PCINT1_vect) {
-	// interrupt handler
-	if (((PINB & 0b10000000) != 0b10000000) && (!isStalled)){
-		isStalled = 1;
-	}
-	else{
-		isStalled = 0;
-	}
-}
 
 //Help function for writeChar (fills array with elements that match character)
 void displayChar(char c, bool odd, volatile uint8_t *address) {
@@ -102,24 +97,29 @@ void printAt(long num, int pos) {
 }
 
 // Counts (and displays) amount of times you've pulled joystick down
-void button(int pos) {
+/*void buttonVertical(int pos) {
 	long n = 0;
-		while ((PINB & (1 << PB7)) == 0b10000000);	// Exits when stick down
-		n++;
-		printAt(n, pos);
-		while ((PINB & 0b10000000) != 0b10000000);	// Exits when stick normal
-		while ((PINB & (1 << PB6)) == 0b01000000 );
-		n--;
-		printAt(n, pos);
-		while ((PINB & 0b01000000) != 0b01000000);	// Exits when stick normal
-	}
-}
+	n++;
+	printAt(n, pos);
+}*/
 
 int main() {
 	Init();
-	button(0);
-	while(1);
+	Lcd display = initLcd(0);
+	Generators gen1 = initGenerator(0);
+	INSTALL(&gen1, test, IRQ_PCINT1);
+	return tinytimber(NULL,NULL,NULL);
+
 		
 }
 
+/*// Generator kladd (ta bort sen)
 
+long savedFreq;
+//below if for 1 
+void GeneratePulse(long freq) {
+	// Read input (if push reset and store previous in savedFreq)
+	if (freq <= 0) {
+		PORTE |= (1 << 4);
+	}
+}*/
