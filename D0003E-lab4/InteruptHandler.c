@@ -9,4 +9,17 @@
 #include "InteruptHandler.h"
 #include "TinyTimber.h"
 
+void horizontalButton() {
+    
+}
+
+int isUp() {
+    if (!(PINB & (1 << PB7))) { // Up
+        return 1;
+    }
+    if (!(PINB & (1 << PB6))) { // Down
+        return 0;
+    }
+}
+
 
