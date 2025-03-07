@@ -13,14 +13,14 @@
 #define INTERUPTHANDLER_H_
 
 typedef struct {
-	//Object super;
 	Joystick *Joystick;
+	Gui *gui;
 	bool risingEdge;
 } InteruptHandler;
 
 #define initInteruptHandler(Joystick) { initObject(), Joystick, false}
 
 void genSwitch	(InteruptHandler *self);
-void freqChange (InteruptHandler *self);
+void FreqChange (InteruptHandler *self);
 
 #endif /* INTERUPTHANDLER_H_ */

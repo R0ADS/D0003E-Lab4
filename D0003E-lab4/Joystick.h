@@ -5,7 +5,6 @@
  *  Author: anton
  */ 
 
-#include <stdbool.h>
 #include "TinyTimber.h"
 #include "Gui.h"
 
@@ -19,7 +18,7 @@ typedef struct{
 
 #define initJoystick(gui) {gui};
 
-int joystickvert(Joystick *self);
+int joystickVert(Joystick *self);
 int joyStickWhore(Joystick *self);
 
 

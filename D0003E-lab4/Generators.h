@@ -9,16 +9,17 @@
 #ifndef GENERATORS_H_
 #define GENERATORS_H_
 
-#include <stdint.h>
 #include "TinyTimber.h"
+#include "Lcd.h"
 
 typedef struct {
-    Object super;
-    int currFreq;
+    Lcd *lcd;
 } Generators;
 
-#define initGenerator(pos) {pos}
+void decrease(Generators *self);
+void increase(Generators *self);
+void press(Generators *self);
 
-void test(Generators *self);
+#define initGenerator(lcd) {lcd};
 
 #endif /* GENERATORS_H_ */

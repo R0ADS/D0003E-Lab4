@@ -6,50 +6,32 @@
  */ 
 
 #include <stdbool.h>
-#include "Lcd.h"
-#include "Generators.h"
+#include "Gui.h"
 
 int isRight = 1; // bool but int
-long rightFreq = 0;
-long leftFreq = 0;
-long storedLeftFreq;
-long storedRightFreq;
 
-void increase(Gui *self) {
+void increaseGui(Gui *self) {
     if (isRight) {
-        rightFreq++;
-        ASYNC(self->lcdR, printAt, rightFreq);
+        ASYNC(self->genR, increase, NULL);
     }
-    else {
-        leftFreq++;
-        ASYNC(self->lcdL, printAt, leftFreq);
-        ASYNC(self->genL, updateFreq, leftFreq);
-    }
+    ASYNC(self->genL, increase, NULL);
 }
 
-void decrease(Gui *self) {
-    if (isRight && (rightFreq != 0)) {
-        rightFreq--;
-        ASYNC(self->lcdR, printAt, rightFreq);
+void decreaseGui(Gui *self) {
+    if (isRight) {
+        ASYNC(self->genR, decrease, NULL);
     }
-    else if (leftFreq != 0) {
-        leftFreq--;
-        ASYNC(self->lcdL, printAt, leftFreq);
-    }
+    ASYNC(self->genL, printAt, NULL);
 }
 
-void switchGenerator(Gui *self) {
-    ASYNC(self->lcdL, switchSegment, NULL);
+void switchGeneratorGui(Gui *self) {
+    ASYNC(self->lcd, switchSegment, NULL);
     isRight = !(isRight);
 }
 
-void press(Gui *self){
+void pressGui(Gui *self) {
     if (isRight) {
-        ASYNC(self->lcdR, printAt, rightFreq);
+        ASYNC(self->genR, press, NULL);
     }
-    else {
-        leftFreq++;
-        ASYNC(self->lcdL, printAt, leftFreq);
-        ASYNC(self->genL, updateFreq, leftFreq);
-    }
+    ASYNC(self->genL, press, NULL);
 }

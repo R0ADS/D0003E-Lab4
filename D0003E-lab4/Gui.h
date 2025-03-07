@@ -5,23 +5,24 @@
  *  Author: anton
  */ 
 
-#include "Gui.h"
+ 
 #include "Lcd.h"
 #include "Generators.h"
-#include <avr/io.h>
 
 #ifndef GUI_H_
 #define GUI_H_
 
 typedef struct {
-    Generator *genL;
-    Generator *genR;
+    Generators *genL;
+    Generators *genR;
+	Lcd *lcd;
 } Gui;
 
 #define initGui(leftGen, rightGen) {leftGen, rightGen};
 
-void increase(Gui *self);
-void decrease(Gui *self);
-void switchGenerator(Gui *self);
+void increaseGui(Gui *self);
+void decreaseGui(Gui *self);
+void switchGeneratorGui(Gui *self);
+void pressGui(Gui *self);
 
 #endif /* GUI_H_ */

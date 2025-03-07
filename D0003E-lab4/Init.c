@@ -5,7 +5,7 @@
  *  Author: anton
  */ 
 #include <avr/io.h>
-#include "init.h"
+#include "Init.h"
 
 void Init(void) {
 	CLKPR = 0x80;    // Fix clock speed

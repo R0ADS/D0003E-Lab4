@@ -6,21 +6,23 @@
  */ 
 
 #include <stdbool.h>
+#include <avr/io.h>
 #include "Joystick.h"
 
-int joystickvert(Joystick *self){
+
+int joystickVert(Joystick *self){
 	if (!(PINB & (1 << PB7))) { //ner klickning
-		ASYNC(self->gui, decrease, NULL); // Kalla p� GUI f�r att s�nka frekvensen
-		AFTER(MSEC(100), self, Joystickhold, NULL);	// Kalla p� sig sj�lv igen (loop)
+		ASYNC(self->gui, decreaseGui, NULL); // Kalla p� GUI f�r att s�nka frekvensen
+		AFTER(MSEC(100), self, joystickVert, NULL);	// Kalla p� sig sj�lv igen (loop)
 	}
 	if (!(PINB & (1 << PB6))) {
-		ASYNC(self->gui, increase, NULL);
-		AFTER(MSEC(100), self, Joystickhold, NULL);
+		ASYNC(self->gui, increaseGui, NULL);
+		AFTER(MSEC(100), self, joystickVert, NULL);
 	}
 	if (!(PINB & (1 << PB4))) { // press
 		if (self->risingEdge) {
 			self->risingEdge = false;
-			ASYNC(self->gui, press, NULL);
+			ASYNC(self->gui, pressGui, NULL);
 		}
 		else{
 			self->risingEdge = true;
@@ -29,28 +31,10 @@ int joystickvert(Joystick *self){
 	return 0;
 }
 
-/*int joyStickVert(Joystick *self){
-	if (!(PINB & (1 << PB7))) { //ner klickning
-		async(self->gui, decrease); // Kalla p� GUI f�r att s�nka frekvensen
-	}
-	if (!(PINB & (1 << PB6))) { // upp klickning
-		async(self->gui, Increase, NULL); // kalla p� GUI f�r att h�ja frekvensen
-	}
-	if (!(PINB & (1 << PB4))) { // press
-		if (self->risingEdge) {
-			self->risingEdge = false;
-			async(self->gui, press, NULL);
-		}
-		else{
-			self->risingEdge = true;
-		}
-	}
-	return 0;
-}*/
 
-int joyStickWhore(Joystick *self) {
-	if (!(PINE & (1 << PE3))) || (!(PINE & (1 << PE2))) {	// Både och???
-		async(self->gui, switchGenerator, NULL);
+int joystickWhore(Joystick *self) {
+	if (!(PINE & (1 << PE3)) || (!(PINE & (1 << PE2)))) {	// Både och???
+		ASYNC(self->gui, switchGeneratorGui, NULL);
 	}
 }
 

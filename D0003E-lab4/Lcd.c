@@ -87,13 +87,21 @@
 
 // Switches between two segments 
 void switchSegment() {
-    LCDDR13 = ^(LCDDR13 & 1);
-    LCDDR18 = ^(LCDDR18 & 1);
+    LCDDR13 = !(LCDDR13 & 1);
+    LCDDR18 = !(LCDDR18 & 1);
 }
  
  // Displays last two digits of num in pos and pos+1
 void printAt(Lcd *self, long num) {
 	int pp = self->pos;
+    writeChar( (num % 100) / 10 + '0', pp);
+    pp++;
+    writeChar( num % 10 + '0', pp);
+ }
+
+ void printAtArray(long input[]) {  // [pos, num]
+	int pp = input[0];
+    long num = input[1];
     writeChar( (num % 100) / 10 + '0', pp);
     pp++;
     writeChar( num % 10 + '0', pp);

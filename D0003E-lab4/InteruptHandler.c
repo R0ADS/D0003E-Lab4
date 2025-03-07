@@ -11,13 +11,13 @@
 #include "Joystick.h"
 
 void FreqChange(InteruptHandler *self){
-    ASYNC(self->Joystick, joystickvert, NULL)
+    ASYNC(self->Joystick, joystickVert, NULL);
 }
 
 void genSwitch(InteruptHandler *self) {
 	if (self->risingEdge) {
 		self->risingEdge = false;
-		ASYNC(self->gui, press, NULL);
+		ASYNC(self->gui, pressGui, NULL);
 	}
 	else{
 		self->risingEdge = true;
