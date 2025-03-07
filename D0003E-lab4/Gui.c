@@ -14,14 +14,18 @@ void increaseGui(Gui *self) {
     if (isRight) {
         ASYNC(self->genR, increase, NULL);
     }
-    ASYNC(self->genL, increase, NULL);
+    else {
+        ASYNC(self->genL, increase, NULL);
+    }
 }
 
 void decreaseGui(Gui *self) {
     if (isRight) {
         ASYNC(self->genR, decrease, NULL);
     }
-    ASYNC(self->genL, printAt, NULL);
+    else {
+        ASYNC(self->genL, printAt, NULL);
+    }
 }
 
 void switchGeneratorGui(Gui *self) {
@@ -33,5 +37,7 @@ void pressGui(Gui *self) {
     if (isRight) {
         ASYNC(self->genR, press, NULL);
     }
-    ASYNC(self->genL, press, NULL);
+    else {
+        ASYNC(self->genL, press, NULL);
+    }
 }

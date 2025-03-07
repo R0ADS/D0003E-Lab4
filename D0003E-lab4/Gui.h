@@ -18,7 +18,7 @@ typedef struct {
 	Lcd *lcd;
 } Gui;
 
-#define initGui(leftGen, rightGen) {leftGen, rightGen};
+#define initGui(leftGen, rightGen, lcd) {leftGen, rightGen, lcd};
 
 void increaseGui(Gui *self);
 void decreaseGui(Gui *self);

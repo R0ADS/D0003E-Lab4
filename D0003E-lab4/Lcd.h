@@ -13,10 +13,9 @@
 
 typedef struct {
     Object super;
-    int pos;
 } Lcd;
 
-#define initLcd(pos) {pos}
+#define initLcd() {}
 
 void switchSegment(void);
 void printAt(Lcd *self, long);

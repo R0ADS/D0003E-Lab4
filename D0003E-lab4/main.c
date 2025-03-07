@@ -18,11 +18,10 @@
 
 int main() {
 	Init();
-	Lcd displayL = initLcd(0);
-	Lcd displayR = initLcd(4);
-	Generators genL = initGenerator(&displayL);
-	Generators genR = initGenerator(&displayR);
-	Gui gui = initGui(&genL, &genR);
+	Lcd display = initLcd();
+	Generators genL = initGenerator(&display, 0);
+	Generators genR = initGenerator(&display, 1);
+	Gui gui = initGui(&genL, &genR, &display);
 	Joystick joy = initJoystick(&gui);
 	InteruptHandler inter = initInteruptHandler(&joy);
 	INSTALL(&inter, FreqChange, IRQ_PCINT1);

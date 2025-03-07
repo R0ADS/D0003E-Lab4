@@ -14,12 +14,13 @@
 
 typedef struct {
     Lcd *lcd;
+    int isRight;
 } Generators;
 
 void decrease(Generators *self);
 void increase(Generators *self);
 void press(Generators *self);
 
-#define initGenerator(lcd) {lcd};
+#define initGenerator(lcd, isRight) {lcd, isRight};
 
 #endif /* GENERATORS_H_ */
