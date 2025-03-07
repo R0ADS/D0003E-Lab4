@@ -84,6 +84,12 @@
          displayChar(c, true, address);
      }
  };
+
+// Switches between two segments 
+void switchSegment() {
+    LCDDR13 = ^(LCDDR13 & 1);
+    LCDDR18 = ^(LCDDR18 & 1);
+}
  
  // Displays last two digits of num in pos and pos+1
 void printAt(Lcd *self, long num) {

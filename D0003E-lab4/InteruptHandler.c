@@ -8,5 +8,18 @@
 #include <avr/io.h>
 #include "InteruptHandler.h"
 #include "TinyTimber.h"
+#include "Joystick.h"
 
+void FreqChange(InteruptHandler *self){
+    ASYNC(self->Joystick, joystickvert, NULL)
+}
 
+void genSwitch(InteruptHandler *self) {
+	if (self->risingEdge) {
+		self->risingEdge = false;
+		ASYNC(self->gui, press, NULL);
+	}
+	else{
+		self->risingEdge = true;
+	}
+}

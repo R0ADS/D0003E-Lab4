@@ -14,7 +14,7 @@
 
 typedef struct {
     Object super;
-    int pos;
+    int currFreq;
 } Generators;
 
 #define initGenerator(pos) {pos}

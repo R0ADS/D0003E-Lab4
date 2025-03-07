@@ -107,6 +107,8 @@ int main() {
 	Init();
 	Lcd display = initLcd(0);
 	Generators gen1 = initGenerator(0);
+	Generators gen2 = initGenerator(1);
+	Gui gui = initGui(gen1, gen2);
 	INSTALL(&gen1, test, IRQ_PCINT1);
 	return tinytimber(NULL,NULL,NULL);
 
