@@ -19,7 +19,7 @@ typedef struct{
 #define initJoystick(gui) {gui};
 
 int joystickVert(Joystick *self);
-int joyStickWhore(Joystick *self);
+int joyStickHor(Joystick *self);
 
 
 #endif /* JOYSTICK_H_ */

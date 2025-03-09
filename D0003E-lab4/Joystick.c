@@ -32,7 +32,7 @@ int joystickVert(Joystick *self){
 }
 
 
-int joystickWhore(Joystick *self) {
+int joystickHor(Joystick *self) {
 	if (!(PINE & (1 << PE3)) || (!(PINE & (1 << PE2)))) {	// Både och???
 		ASYNC(self->gui, switchGeneratorGui, NULL);
 	}

@@ -18,7 +18,7 @@ typedef struct {
 #define initLcd() {}
 
 void switchSegment(void);
-void printAt(Lcd *self, long);
+void printAt(long input[]);
 
 #endif /* LCD_H_ */
 

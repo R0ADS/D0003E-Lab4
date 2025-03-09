@@ -92,7 +92,7 @@ void switchSegment() {
  
 // Displays last two digits of num in pos and pos+1
 void printAt(long input[]) {  // [pos, num]
-    int pp = input[0];
+    long pp = input[0];
     long num = input[1];
     writeChar((num % 100) / 10 + '0', pp);
     pp++;

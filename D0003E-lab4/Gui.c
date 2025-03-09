@@ -10,6 +10,8 @@
 
 int isRight = 1; // bool but int
 
+
+// NOTE: The main purpose of this object is to distinguish current display segment and call methods accordingly
 void increaseGui(Gui *self) {
     if (isRight) {
         ASYNC(self->genR, increase, NULL);

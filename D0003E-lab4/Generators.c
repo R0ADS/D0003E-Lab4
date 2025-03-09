@@ -6,6 +6,7 @@
  */ 
 #include "Generators.h"
 #include "Lcd.h"
+#include <avr/io.h>
 
 long currentFreq = 0;
 long storedFreq;
@@ -13,10 +14,12 @@ long storedFreq;
 void increase(Generators *self) {
     currentFreq++;
     if (self->isRight) {
-        ASYNC(self->lcd, printAt, {0, currentFreq});
+        long temp[] = {0, currentFreq};
+        ASYNC(self->lcd, printAt, temp);
     }
     else {
-        ASYNC(self->lcd, printAt, {4, currentFreq});
+        long temp[] = {0, currentFreq};
+        ASYNC(self->lcd, printAt, temp);
     }
     // Uppdatera frekvens för actual pulsgenerering
     
@@ -28,10 +31,12 @@ void decrease(Generators *self) {
     if (currentFreq > 0) {
         currentFreq--;
         if (self->isRight) {
-            ASYNC(self->lcd, printAt, {0, currentFreq});
+            long temp[] = {0, currentFreq};
+            ASYNC(self->lcd, printAt, temp);
         }
         else {
-            ASYNC(self->lcd, printAt, {4, currentFreq});
+            long temp[] = {4, currentFreq};
+            ASYNC(self->lcd, printAt, temp);
         }
         // Uppdatara frekvens (osäker om man ska calla SYNC eller ASYNC)
     }
@@ -49,7 +54,7 @@ void press(Generators *self) {
 }
 
 // Generates the pulse
-void generatePulse(Generators *self, freq) {
+void generatePulse(Generators *self, int freq) {
     if (freq > 0) {                                 // Stops recursion if freq hits 0
         if (self->isRight) {
             PORTE ^= (1 << PE6);                    // This and the one below generates actual pulse
@@ -57,6 +62,6 @@ void generatePulse(Generators *self, freq) {
         else {
             PORTE ^= (1 << PE4);
         }
-    AFTER(MSEC(1000/freq), self, generatePulse)     // Calls itself according to freq
+    AFTER(MSEC(1000/freq), self, generatePulse, NULL);    // Calls itself according to freq
     }
 }
