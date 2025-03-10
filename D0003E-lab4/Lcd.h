@@ -15,10 +15,10 @@ typedef struct {
     Object super;
 } Lcd;
 
-#define initLcd() {}
+#define initLcd() {initObject()}
 
 void switchSegment(void);
-void printAt(long input[]);
+int  printAt(Lcd *self, int input);
 
 #endif /* LCD_H_ */
 

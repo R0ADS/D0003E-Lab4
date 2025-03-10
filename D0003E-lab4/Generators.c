@@ -6,20 +6,20 @@
  */ 
 #include "Generators.h"
 #include "Lcd.h"
+#include "TinyTimber.h"
 #include <avr/io.h>
 
-long currentFreq = 0;
-long storedFreq;
+int currentFreq = 0;
+int storedFreq;
 
 void increase(Generators *self) {
     currentFreq++;
     if (self->isRight) {
-        long temp[] = {0, currentFreq};
-        ASYNC(self->lcd, printAt, temp);
+        int temp[] = {0, currentFreq};
+        ASYNC(self->lcd, printAt, currentFreq*10 + 4);
     }
     else {
-        long temp[] = {0, currentFreq};
-        ASYNC(self->lcd, printAt, temp);
+        ASYNC(self->lcd, printAt, currentFreq*10);
     }
     // Uppdatera frekvens för actual pulsgenerering
     
@@ -31,12 +31,10 @@ void decrease(Generators *self) {
     if (currentFreq > 0) {
         currentFreq--;
         if (self->isRight) {
-            long temp[] = {0, currentFreq};
-            ASYNC(self->lcd, printAt, temp);
+            ASYNC(self->lcd, printAt, currentFreq*10 + 4);
         }
         else {
-            long temp[] = {4, currentFreq};
-            ASYNC(self->lcd, printAt, temp);
+            ASYNC(self->lcd, printAt, currentFreq*10);
         }
         // Uppdatara frekvens (osäker om man ska calla SYNC eller ASYNC)
     }
@@ -44,12 +42,14 @@ void decrease(Generators *self) {
 
 // The thing that happens when pressing the joystick
 void press(Generators *self) {
-    if (currentFreq != 0) {
+    if (currentFreq != 0) { // Maybe fix call later
         storedFreq = currentFreq;
-        currentFreq = 0;
+        currentFreq = 1;
+		ASYNC(self, decrease, NULL);
     }
     else {
-        currentFreq = storedFreq;
+        currentFreq = storedFreq + 1;
+		ASYNC(self, decrease, NULL);
     }
 }
 

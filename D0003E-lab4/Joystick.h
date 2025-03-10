@@ -12,14 +12,15 @@
 #define JOYSTICK_H_
 
 typedef struct{
+	Object super;
 	Gui *gui;
-	bool risingEdge;
+	//bool risingEdge;
 	} Joystick;
 
-#define initJoystick(gui) {gui};
+#define initJoystick(gui) {initObject(), gui};
 
 int joystickVert(Joystick *self);
-int joyStickHor(Joystick *self);
+int joystickHor(Joystick *self);
 
 
 #endif /* JOYSTICK_H_ */

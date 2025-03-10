@@ -15,18 +15,19 @@ int joystickVert(Joystick *self){
 		ASYNC(self->gui, decreaseGui, NULL); // Kalla p� GUI f�r att s�nka frekvensen
 		AFTER(MSEC(100), self, joystickVert, NULL);	// Kalla p� sig sj�lv igen (loop)
 	}
-	if (!(PINB & (1 << PB6))) {
+	if (!(PINB & (1 << PB6))) {	// Up
 		ASYNC(self->gui, increaseGui, NULL);
 		AFTER(MSEC(100), self, joystickVert, NULL);
 	}
-	if (!(PINB & (1 << PB4))) { // press
-		if (self->risingEdge) {
+	if (!(PINB & (1 << PB4))) { // Press
+		ASYNC(self->gui, pressGui, NULL);
+		/*if (self->risingEdge) {
 			self->risingEdge = false;
 			ASYNC(self->gui, pressGui, NULL);
 		}
 		else{
 			self->risingEdge = true;
-		}
+		}*/
 	}
 	return 0;
 }

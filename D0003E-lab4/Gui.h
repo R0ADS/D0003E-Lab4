@@ -13,12 +13,13 @@
 #define GUI_H_
 
 typedef struct {
+	Object super;
     Generators *genL;
     Generators *genR;
 	Lcd *lcd;
 } Gui;
 
-#define initGui(leftGen, rightGen, lcd) {leftGen, rightGen, lcd};
+#define initGui(leftGen, rightGen, lcd) {initObject(), leftGen, rightGen, lcd};
 
 void increaseGui(Gui *self);
 void decreaseGui(Gui *self);

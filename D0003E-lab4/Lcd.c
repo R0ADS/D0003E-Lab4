@@ -91,10 +91,12 @@ void switchSegment() {
 }
  
 // Displays last two digits of num in pos and pos+1
-void printAt(long input[]) {  // [pos, num]
-    long pp = input[0];
-    long num = input[1];
+int  printAt(Lcd *self, int input) {  // [pos, num]
+    int pp = input % 10;
+    int num = input / 10;
     writeChar((num % 100) / 10 + '0', pp);
     pp++;
     writeChar( num % 10 + '0', pp);
+
+    return 0;
 }

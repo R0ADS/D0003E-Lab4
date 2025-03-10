@@ -15,7 +15,6 @@
 typedef struct {
 	Joystick *Joystick;
 	Gui *gui;
-	bool risingEdge;
 } InteruptHandler;
 
 #define initInteruptHandler(Joystick) { initObject(), Joystick, false}

@@ -15,11 +15,5 @@ void FreqChange(InteruptHandler *self){
 }
 
 void genSwitch(InteruptHandler *self) {
-	if (self->risingEdge) {
-		self->risingEdge = false;
-		ASYNC(self->gui, pressGui, NULL);
-	}
-	else{
-		self->risingEdge = true;
-	}
+	ASYNC(self->Joystick, joystickHor, NULL);
 }
