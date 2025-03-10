@@ -13,15 +13,17 @@
 #include "Lcd.h"
 
 typedef struct {
-	Object super;
-    Lcd *lcd;
+    Object super;
+    int currentFreq;
+    int storedFreq;
     int isRight;
+    Lcd *lcd;
 } Generators;
 
 void decrease(Generators *self);
 void increase(Generators *self);
 void press(Generators *self);
 
-#define initGenerator(lcd, isRight) {initObject(), lcd, isRight};
+#define initGenerator(lcd, isRight) {initObject(), 0, 0, isRight, lcd};
 
 #endif /* GENERATORS_H_ */
