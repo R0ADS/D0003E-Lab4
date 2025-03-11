@@ -24,9 +24,7 @@ int main() {
 	Gui gui = initGui(&genL, &genR, &display);
 	Joystick joy = initJoystick(&gui);
 	InteruptHandler inter = initInteruptHandler(&joy);
-	INSTALL(&joy, joystickVert, IRQ_PCINT1);
-	INSTALL(&joy, joystickHor, IRQ_PCINT0);
-	/*INSTALL(&inter, FreqChange, IRQ_PCINT1);
-	INSTALL(&inter, genSwitch, IRQ_PCINT0);*/
+	INSTALL(&inter, FreqChange, IRQ_PCINT1);
+	INSTALL(&inter, genSwitch, IRQ_PCINT0);
 	return tinytimber(NULL,NULL,NULL);		
 }

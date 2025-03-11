@@ -7,6 +7,7 @@
 
 #include "TinyTimber.h"
 #include "Gui.h"
+#include <stdbool.h>
 
 #ifndef JOYSTICK_H_
 #define JOYSTICK_H_
@@ -14,13 +15,14 @@
 typedef struct{
 	Object super;
 	Gui *gui;
-	//bool risingEdge;
+	bool hold;
 	} Joystick;
 
-#define initJoystick(gui) {initObject(), gui};
+#define initJoystick(gui) {initObject(), gui, false};
 
 int joystickVert(Joystick *self);
 int joystickHor(Joystick *self);
+void holdStick(Joystick *self);
 
 
 #endif /* JOYSTICK_H_ */

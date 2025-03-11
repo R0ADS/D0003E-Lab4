@@ -9,25 +9,31 @@
 #include <avr/io.h>
 #include "Joystick.h"
 
-
-int joystickVert(Joystick *self){
+void holdStick(Joystick *self){
 	if (!(PINB & (1 << PB7))) { //ner klickning
+		self->hold = true;
 		ASYNC(self->gui, decreaseGui, NULL); // Kalla p� GUI f�r att s�nka frekvensen
 		AFTER(MSEC(100), self, joystickVert, NULL);	// Kalla p� sig sj�lv igen (loop)
 	}
 	if (!(PINB & (1 << PB6))) {	// Up
+		self->hold = true;
 		ASYNC(self->gui, increaseGui, NULL);
 		AFTER(MSEC(100), self, joystickVert, NULL);
 	}
+}
+
+int joystickVert(Joystick *self){
+	if (!self->hold)
+		if (!(PINB & (1 << PB7))) { //ner klickning
+			ASYNC(self->gui, decreaseGui, NULL); // Kalla p� GUI f�r att s�nka frekvensen
+			AFTER(MSEC(100), self, joystickVert, NULL);	// Kalla p� sig sj�lv igen (loop)
+		}
+		if (!(PINB & (1 << PB6))) {	// Up
+			ASYNC(self->gui, increaseGui, NULL);
+			AFTER(MSEC(100), self, joystickVert, NULL);
+		}
 	if (!(PINB & (1 << PB4))) { // Press
 		ASYNC(self->gui, pressGui, NULL);
-		/*if (self->risingEdge) {
-			self->risingEdge = false;
-			ASYNC(self->gui, pressGui, NULL);
-		}
-		else{
-			self->risingEdge = true;
-		}*/
 	}
 	return 0;
 }

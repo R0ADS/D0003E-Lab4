@@ -12,22 +12,20 @@
 
 // Updates dispaly
 void updateDisplay(Generators *self) {
-    if (self->isRight) {
-        int temp[] = {0, self->currentFreq};
-        ASYNC(self->lcd, printAt, self->currentFreq*10 + 4);
-    }
-    else {
-        ASYNC(self->lcd, printAt, self->currentFreq*10);
-    }
+	if (self->isRight) {
+		ASYNC(self->lcd, printAt, self->currentFreq*10 + 4);
+	}
+	else {
+		ASYNC(self->lcd, printAt, self->currentFreq*10);
+	}
 }
 
 // Increases frequency
 void increase(Generators *self) {
-    self->currentFreq++;
-    ASYNC(self, updateDisplay, NULL);
-    // Uppdatera frekvens för actual pulsgenerering
-    
-    
+	if (self->currentFreq != 99){
+		self->currentFreq++;
+		ASYNC(self, updateDisplay, NULL);
+	}   
 }
 
 // The thing that happens when pulling joystick down
