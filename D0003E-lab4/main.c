@@ -19,10 +19,9 @@
 int main() {
 	Init();
 	Lcd display = initLcd();
-	BitOp bitL = initBitOp(0);
-	BitOp bitR = initBitOp(1);
-	Generators genL = initGenerator(&display, 0, &bitL);
-	Generators genR = initGenerator(&display, 1, &bitR);
+	BitOp bitOp = initBitOp();
+	Generators genL = initGenerator(&display, 0, &bitOp);
+	Generators genR = initGenerator(&display, 1, &bitOp);
 	Gui gui = initGui(&genL, &genR, &display);
 	Joystick joy = initJoystick(&gui);
 	InteruptHandler inter = initInteruptHandler(&joy);

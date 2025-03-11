@@ -9,7 +9,7 @@
 #include <avr/io.h>
 #include "Joystick.h"
 
-/*void holdStick(Joystick *self){
+void holdStick(Joystick *self){
 	if (!(PINB & (1 << PB7))) { //ner klickning
 		self->hold = true;
 		ASYNC(self->gui, decreaseGui, NULL); // Kalla p� GUI f�r att s�nka frekvensen
@@ -20,30 +20,33 @@
 		ASYNC(self->gui, increaseGui, NULL);
 		AFTER(MSEC(100), self, holdStick, NULL);
 	}
-}*/
+	self->hold = false;
+}
 
 int joystickVert(Joystick *self){
-	if (!(PINB & (1 << PB7))) { //ner klickning
-		ASYNC(self->gui, decreaseGui, NULL); // Kalla p� GUI f�r att s�nka frekvensen
-		AFTER(MSEC(100), self, joystickVert, NULL);	// Kalla p� sig sj�lv igen (loop)
+	if (!self->hold){
+		if (!(PINB & (1 << PB7))) { //ner klickning
+			AFTER(MSEC(100), self, holdStick, NULL);	// Kalla p� sig sj�lv igen (loop)
+		}
+		if (!(PINB & (1 << PB6))) {	// Up
+			AFTER(MSEC(100), self, holdStick, NULL);
+		}
 	}
-	else if (!(PINB & (1 << PB6))) {	// Up
-		ASYNC(self->gui, increaseGui, NULL);
-		AFTER(MSEC(100), self, joystickVert, NULL);
-	}
-	else if (!(PINB & (1 << PB4))) { // Press
+	if (!(PINB & (1 << PB4))) { // Press
 		ASYNC(self->gui, pressGui, NULL);
 	}
-	else{
-		return 0;
-	}
-	return 0;
 }
 
 
+/*if (self->msg) {
+	ABORT(self->msg);
+	self->msg = NULL;
+}
+self->msg = AFTER(MSEC(100), self, joystickVert, NULL);	// Kalla p� sig sj�lv igen (loop)*/
+
 int joystickHor(Joystick *self) {
 	if (!(PINE & (1 << PE3)) || (!(PINE & (1 << PE2)))) {	// Både och???
-		ASYNC(self->gui, switchGeneratorGui, NULL);
+		self->msg = ASYNC(self->gui, switchGeneratorGui, NULL);
 	}
 }
 

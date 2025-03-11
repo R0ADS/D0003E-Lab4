@@ -53,7 +53,7 @@ void press(Generators *self) {
 
 void generatePulse(Generators *self){
     if (self->currentFreq != 0 || self->risingEdge){
-        ASYNC(self->bitOp, writeBit, NULL);
+        ASYNC(self->bitOp, writeBit, self->isRight);
 		self->risingEdge ^= (self->risingEdge);
 		AFTER(MSEC(500/self->currentFreq), self, generatePulse, NULL);
     }

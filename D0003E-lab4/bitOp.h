@@ -15,8 +15,8 @@ typedef struct{
 	int isRight;
 } BitOp;
 
-#define initBitOp(isRight) {initObject(), isRight}
+#define initBitOp() {initObject()}
 
-void writeBit(BitOp *self);
+void writeBit(BitOp *self, int isRight);
 
 #endif /* BITOP_H_ */

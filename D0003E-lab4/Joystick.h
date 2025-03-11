@@ -16,6 +16,7 @@ typedef struct{
 	Object super;
 	Gui *gui;
 	bool hold;
+	Msg msg;
 	} Joystick;
 
 #define initJoystick(gui) {initObject(), gui, false};
