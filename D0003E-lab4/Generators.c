@@ -7,6 +7,7 @@
 #include "Generators.h"
 #include "Lcd.h"
 #include "TinyTimber.h"
+#include "bitOp.h"
 #include <avr/io.h>
 
 
@@ -17,7 +18,7 @@ void updateDisplay(Generators *self) {
 	}
 	else {
 		ASYNC(self->lcd, printAt, self->currentFreq*10);
-	}
+    }
 }
 
 // Increases frequency
@@ -50,15 +51,164 @@ void press(Generators *self) {
     }
 }
 
-// Generates the pulse
-void generatePulse(Generators *self, int freq) {
-    if (freq > 0) {                                 // Stops recursion if freq hits 0
-        if (self->isRight) {
-            PORTE ^= (1 << PE6);                    // This and the one below generates actual pulse
-        }
-        else {
-            PORTE ^= (1 << PE4);
-        }
-    AFTER(MSEC(1000/freq), self, generatePulse, NULL);    // Calls itself according to freq
+void generatePulse(Generators *self){
+    if (self->currentFreq != 0 || self->risingEdge){
+        ASYNC(self->bitOp, writeBit, NULL);
+		self->risingEdge ^= (self->risingEdge);
+		AFTER(MSEC(500/self->currentFreq), self, generatePulse, NULL);
     }
+	else{
+    self->risingEdge ^= (self->risingEdge);
+    AFTER(MSEC(500), self, generatePulse, NULL);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

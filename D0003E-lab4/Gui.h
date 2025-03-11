@@ -5,7 +5,7 @@
  *  Author: anton
  */ 
 
- 
+#include <avr/io.h>
 #include "Lcd.h"
 #include "Generators.h"
 
@@ -14,16 +14,18 @@
 
 typedef struct {
 	Object super;
+	int isRight;
     Generators *genL;
     Generators *genR;
 	Lcd *lcd;
 } Gui;
 
-#define initGui(leftGen, rightGen, lcd) {initObject(), leftGen, rightGen, lcd};
+#define initGui(leftGen, rightGen, lcd) {initObject(), 1, leftGen, rightGen, lcd};
 
 void increaseGui(Gui *self);
 void decreaseGui(Gui *self);
 void switchGeneratorGui(Gui *self);
 void pressGui(Gui *self);
+void start(Gui *self);
 
 #endif /* GUI_H_ */

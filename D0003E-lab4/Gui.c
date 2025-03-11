@@ -8,12 +8,10 @@
 #include <stdbool.h>
 #include "Gui.h"
 
-int isRight = 1; // bool but int
-
 
 // NOTE: The main purpose of this object is to distinguish current display segment and call methods accordingly
 void increaseGui(Gui *self) {
-    if (isRight) {
+    if (self->isRight) {
         ASYNC(self->genR, increase, NULL);
     }
     else {
@@ -22,7 +20,7 @@ void increaseGui(Gui *self) {
 }
 
 void decreaseGui(Gui *self) {
-    if (isRight) {
+    if (self->isRight) {
         ASYNC(self->genR, decrease, NULL);
     }
     else {
@@ -32,14 +30,19 @@ void decreaseGui(Gui *self) {
 
 void switchGeneratorGui(Gui *self) {
     ASYNC(self->lcd, switchSegment, NULL);
-    isRight = !(isRight);
+    self->isRight = !(self->isRight);
 }
 
 void pressGui(Gui *self) {
-    if (isRight) {
+    if (self->isRight) {
         ASYNC(self->genR, press, NULL);
     }
     else {
         ASYNC(self->genL, press, NULL);
     }
+}
+
+void start(Gui *self){
+	ASYNC(self->genL, generatePulse, NULL);
+	ASYNC(self->genR, generatePulse, NULL);
 }

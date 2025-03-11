@@ -12,7 +12,7 @@ Joystick.d Joystick.o: .././Joystick.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
  .././Joystick.h .././TinyTimber.h .././Gui.h .././Lcd.h \
- .././Generators.h
+ .././Generators.h .././bitOp.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h:
 
@@ -47,3 +47,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 .././Lcd.h:
 
 .././Generators.h:
+
+.././bitOp.h:

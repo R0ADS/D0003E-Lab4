@@ -19,12 +19,15 @@
 int main() {
 	Init();
 	Lcd display = initLcd();
-	Generators genL = initGenerator(&display, 0);
-	Generators genR = initGenerator(&display, 1);
+	BitOp bitL = initBitOp(0);
+	BitOp bitR = initBitOp(1);
+	Generators genL = initGenerator(&display, 0, &bitL);
+	Generators genR = initGenerator(&display, 1, &bitR);
 	Gui gui = initGui(&genL, &genR, &display);
 	Joystick joy = initJoystick(&gui);
 	InteruptHandler inter = initInteruptHandler(&joy);
 	INSTALL(&inter, FreqChange, IRQ_PCINT1);
 	INSTALL(&inter, genSwitch, IRQ_PCINT0);
-	return tinytimber(NULL,NULL,NULL);		
+	return tinytimber(&gui, start, NULL);
+	//return tinytimber(NULL,NULL,NULL);		
 }

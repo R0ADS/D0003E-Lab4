@@ -136,6 +136,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="bitOp.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="bitOp.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Generators.c">
       <SubType>compile</SubType>
     </Compile>
